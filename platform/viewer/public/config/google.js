@@ -13,8 +13,7 @@ window.config = {
       // Authorization Server URL
       authority: 'https://accounts.google.com',
       client_id: 'YOURCLIENTID.apps.googleusercontent.com',
-      redirect_uri:
-        'https://auth.dev.rpxapps.com/auth/realms/rpxdev/broker/google/endpoint', // `OHIFStandaloneViewer.js`
+      redirect_uri: '/callback', // `OHIFStandaloneViewer.js`
       response_type: 'id_token token',
       scope:
         'email profile openid https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/cloud-healthcare', // email profile openid
