@@ -179,7 +179,9 @@ function StudyList(props) {
           studies.map((study, index) => (
             <TableRow
               key={`${study.StudyInstanceUID}-${index}`}
-              onClick={StudyInstanceUID => handleSelectItem(StudyInstanceUID)}
+              onClick={StudyInstanceUID =>
+                handleSelectItem(StudyInstanceUID, study)
+              }
               AccessionNumber={study.AccessionNumber || ''}
               modalities={study.modalities}
               PatientID={study.PatientID || ''}
