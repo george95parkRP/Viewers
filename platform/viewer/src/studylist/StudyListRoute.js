@@ -21,6 +21,7 @@ import filesToStudies from '../lib/filesToStudies.js';
 import UserManagerContext from '../context/UserManagerContext';
 import WhiteLabelingContext from '../context/WhiteLabelingContext';
 import AppContext from '../context/AppContext';
+import { servicesManager } from './../App.js';
 
 const { urlUtil: UrlUtil } = OHIF.utils;
 
@@ -251,7 +252,11 @@ function StudyListRoute(props) {
           hasError={searchStatus.error === true}
           // Rows
           studies={studies}
-          onSelectItem={studyInstanceUID => {
+          onSelectItem={(studyInstanceUID, study) => {
+            const { SendAccessionService } = servicesManager.services;
+            const { STUDY_OPENED } = SendAccessionService.EVENTS;
+            SendAccessionService._broadcastChange(STUDY_OPENED, study);
+
             const viewerPath = RoutesUtil.parseViewerPath(appConfig, server, {
               studyInstanceUIDs: studyInstanceUID,
             });
