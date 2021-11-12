@@ -2,7 +2,7 @@
 node_modules
 
 # Output
-build
+
 dist
 docs/_book
 src/version.js
@@ -38,4 +38,3 @@ screenshots/
 
 # Locize settings
 .locize
-
