@@ -3,12 +3,20 @@ export default {
   version: '0.1.0',
 
   preRegistration({ servicesManager }) {
-    const { SendAccessionService } = servicesManager.services;
+    const { IntegrationService } = servicesManager.services;
 
-    const { STUDY_OPENED } = SendAccessionService.EVENTS;
+    const { STUDY_OPENED, STUDY_CLOSED } = IntegrationService.EVENTS;
 
-    SendAccessionService.subscribe(STUDY_OPENED, ({ study }) => {
-      console.log('STUDY IS: ' + JSON.stringify(study));
+    IntegrationService.subscribe(STUDY_OPENED, ({ study }) => {
+      if (window.api) {
+        window.api.send('study_open', study);
+      }
+    });
+
+    IntegrationService.subscribe(STUDY_CLOSED, () => {
+      if (window.api) {
+        window.api.send('study_close');
+      }
     });
   },
 };

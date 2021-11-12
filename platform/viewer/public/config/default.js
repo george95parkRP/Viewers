@@ -5,6 +5,24 @@ window.config = {
   showStudyList: true,
   filterQueryParam: false,
   disableServersCache: false,
+  whiteLabeling: {
+    // eslint-disable-next-line react/display-name
+    createLogoComponentFn: function(React) {
+      return React.createElement(
+        'a',
+        {
+          target: '_blank',
+          rel: 'noopener noreferrer',
+          className: 'header-brand',
+          href: '/',
+        },
+        React.createElement('img', {
+          src: '/assets/aidoc-logo.svg',
+          height: '40',
+        })
+      );
+    },
+  },
   studyPrefetcher: {
     enabled: true,
     order: 'closest',
@@ -29,6 +47,21 @@ window.config = {
       },
     ],
   },
+  /*   oidc: [
+    {
+      // ~ REQUIRED
+      // Authorization Server URL
+      authority: 'http://127.0.0.1/auth/realms/ohif',
+      client_id: 'ohif-viewer',
+      redirect_uri: 'http://127.0.0.1/callback', // `OHIFStandaloneViewer.js`
+      // "Authorization Code Flow"
+      // Resource: https://medium.com/@darutk/diagrams-of-all-the-openid-connect-flows-6968e3990660
+      response_type: 'code',
+      scope: 'openid', // email profile openid
+      // ~ OPTIONAL
+      post_logout_redirect_uri: '/logout-redirect.html',
+    },
+  ], */
   // Extensions should be able to suggest default values for these?
   // Or we can require that these be explicitly set
   hotkeys: [

@@ -1,7 +1,7 @@
 import EVENTS from './EVENTS';
 import guid from '../../utils/guid';
 
-class SendAccessionService {
+class IntegrationService {
   constructor() {
     this.listeners = {};
     Object.defineProperty(this, 'EVENTS', {
@@ -90,4 +90,4 @@ class SendAccessionService {
   }
 }
 
-export default SendAccessionService;
+export default IntegrationService;

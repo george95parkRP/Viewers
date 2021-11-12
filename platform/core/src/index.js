@@ -27,7 +27,7 @@ import {
   UIDialogService,
   MeasurementService,
   LoggerService,
-  SendAccessionService,
+  IntegrationService,
 } from './services';
 
 const OHIF = {
@@ -63,7 +63,7 @@ const OHIF = {
   UIDialogService,
   MeasurementService,
   LoggerService,
-  SendAccessionService,
+  IntegrationService,
 };
 
 export {
@@ -98,7 +98,7 @@ export {
   UIDialogService,
   MeasurementService,
   LoggerService,
-  SendAccessionService,
+  IntegrationService,
 };
 
 export { OHIF };

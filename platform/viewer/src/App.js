@@ -27,7 +27,7 @@ import {
   UIDialogService,
   LoggerService,
   MeasurementService,
-  SendAccessionService,
+  IntegrationService,
   utils,
   redux as reduxOHIF,
 } from '@ohif/core';
@@ -144,7 +144,7 @@ class App extends Component {
       UIModalService,
       UIDialogService,
       MeasurementService,
-      SendAccessionService,
+      IntegrationService,
       LoggerService,
     ]);
     _initExtensions(

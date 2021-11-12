@@ -4,7 +4,7 @@ import UIModalService from './UIModalService';
 import UIDialogService from './UIDialogService';
 import MeasurementService from './MeasurementService';
 import LoggerService from './LoggerService';
-import SendAccessionService from './SendAccessionService';
+import IntegrationService from './IntegrationService';
 
 export {
   UINotificationService,
@@ -13,5 +13,5 @@ export {
   ServicesManager,
   MeasurementService,
   LoggerService,
-  SendAccessionService,
+  IntegrationService,
 };

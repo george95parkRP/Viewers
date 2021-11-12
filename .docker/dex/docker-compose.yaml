@@ -1,0 +1,9 @@
+version: '3.1'
+services:
+  dex:
+    image: quay.io/dexidp/dex:v2.21.0
+    command: 'serve /dex-config/config.yaml'
+    ports:
+      - '5556:5556'
+    volumes:
+      - ./config/config.yaml:/dex-config/config.yaml

@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import { Dropdown, AboutContent, withModal } from '@ohif/ui';
 //
 import { UserPreferences } from './../UserPreferences';
+import { servicesManager } from '../../App.js';
 import OHIFLogo from '../OHIFLogo/OHIFLogo.js';
 import './Header.css';
 
@@ -81,9 +82,19 @@ function Header(props) {
           {hasLink && (
             <Link
               className="header-btn header-studyListLinkSection"
-              to={{
-                pathname: linkPath,
-                state: { studyLink: location.pathname },
+              to={() => {
+                return {
+                  pathname: linkPath,
+                  state: { studyLink: location.pathname },
+                };
+              }}
+              onClick={() => {
+                if (linkText === 'Study List') {
+                  const { IntegrationService } = servicesManager.services;
+                  const { STUDY_CLOSED } = IntegrationService.EVENTS;
+                  IntegrationService._broadcastChange(STUDY_CLOSED);
+                  // console.log('study closing', linkPath, location);
+                }
               }}
             >
               {t(linkText)}
