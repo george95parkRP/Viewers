@@ -47,21 +47,21 @@ window.config = {
       },
     ],
   },
-  /*   oidc: [
+  oidc: [
     {
       // ~ REQUIRED
       // Authorization Server URL
-      authority: 'http://127.0.0.1/auth/realms/ohif',
-      client_id: 'ohif-viewer',
-      redirect_uri: 'http://127.0.0.1/callback', // `OHIFStandaloneViewer.js`
+      authority: 'http://localhost:8080/auth/realms/aidoc-demo',
+      client_id: 'ohif',
+      redirect_uri: 'http://localhost:3000/callback', // `OHIFStandaloneViewer.js`
       // "Authorization Code Flow"
       // Resource: https://medium.com/@darutk/diagrams-of-all-the-openid-connect-flows-6968e3990660
       response_type: 'code',
-      scope: 'openid', // email profile openid
+      scope: 'openid email profile openid aidoc', // email profile openid
       // ~ OPTIONAL
       post_logout_redirect_uri: '/logout-redirect.html',
     },
-  ], */
+  ],
   // Extensions should be able to suggest default values for these?
   // Or we can require that these be explicitly set
   hotkeys: [
