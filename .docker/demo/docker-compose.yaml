@@ -5,6 +5,20 @@ volumes:
     driver: local
 
 services:
+  traefik:
+    image: traefik
+    container_name: traefik
+    command:
+      - '--api.insecure=true'
+      - '--providers.docker=true'
+      - '--providers.docker.exposedbydefault=false'
+      - '--entrypoints.web.address=:8080'
+      - '--entrypoints.traefik.address=:8081'
+    ports:
+      - 8080:8080
+      - 8081:8081
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
   postgres:
     image: postgres
     container_name: postgres
@@ -26,7 +40,31 @@ services:
       DB_PASSWORD: password
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: Pa55w0rd
-    ports:
-      - 8080:8080
     depends_on:
       - postgres
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.keycloak.rule=PathPrefix(`/auth`)'
+      - 'treafik.http.routers.keycloak.entrypoints=web'
+  orthanc:
+    image: gcr.io/dev-rpxapps/conduit-orthanc:c406bbc
+    hostname: orthanc
+    container_name: orthanc
+    volumes:
+      # Config
+      - ./config/orthanc.json:/etc/orthanc/orthanc.json:ro
+      # Persist data
+      # - ./volumes/orthanc-db/:/var/lib/orthanc/db/
+    restart: unless-stopped
+    labels:
+      - 'traefik.enable=true'
+      - traefik.http.services.orthanc.loadbalancer.server.port=8042
+      - 'traefik.http.routers.orthanc.rule=PathPrefix(`/dicom-web`)'
+      - 'treafik.http.routers.orthanc.entrypoints=web'
+      - 'traefik.http.middlewares.cors.headers.accesscontrolallowmethods=GET,OPTIONS,PUT'
+      - 'traefik.http.middlewares.cors.headers.accesscontrolmaxage=100'
+      - 'traefik.http.middlewares.cors.headers.accesscontrolalloworiginlist=*'
+      - 'traefik.http.middlewares.cors.headers.accesscontrolallowheaders=*'
+      - 'traefik.http.middlewares.cors.headers.accesscontrolexposeheaders=*'
+      - 'traefik.http.middlewares.cors.headers.addvaryheader=true'
+      - 'traefik.http.routers.orthanc.middlewares=cors'

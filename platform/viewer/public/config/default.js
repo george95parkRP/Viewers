@@ -35,15 +35,19 @@ window.config = {
   servers: {
     dicomWeb: [
       {
-        name: 'DCM4CHEE',
-        wadoUriRoot: 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/wado',
-        qidoRoot: 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs',
-        wadoRoot: 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs',
-        qidoSupportsIncludeField: true,
+        name: 'Orthanc',
+        wadoUriRoot: 'http://localhost:8080/wado',
+        qidoRoot: 'http://localhost:8080/dicom-web',
+        wadoRoot: 'http://localhost:8080/dicom-web',
+        qidoSupportsIncludeField: false,
         imageRendering: 'wadors',
         thumbnailRendering: 'wadors',
-        enableStudyLazyLoad: true,
-        supportsFuzzyMatching: true,
+        // REQUIRED TAG:
+        // TODO: Remove tag after https://github.com/OHIF/ohif-core/pull/19 is merged and we bump version
+        // requestOptions: {
+        // undefined to use JWT + Bearer auth
+        // auth: 'orthanc:orthanc',
+        // },
       },
     ],
   },
