@@ -58,13 +58,16 @@ services:
     restart: unless-stopped
     labels:
       - 'traefik.enable=true'
-      - traefik.http.services.orthanc.loadbalancer.server.port=8042
-      - 'traefik.http.routers.orthanc.rule=PathPrefix(`/dicom-web`)'
-      - 'treafik.http.routers.orthanc.entrypoints=web'
       - 'traefik.http.middlewares.cors.headers.accesscontrolallowmethods=GET,OPTIONS,PUT'
       - 'traefik.http.middlewares.cors.headers.accesscontrolmaxage=100'
       - 'traefik.http.middlewares.cors.headers.accesscontrolalloworiginlist=*'
       - 'traefik.http.middlewares.cors.headers.accesscontrolallowheaders=*'
       - 'traefik.http.middlewares.cors.headers.accesscontrolexposeheaders=*'
       - 'traefik.http.middlewares.cors.headers.addvaryheader=true'
-      - 'traefik.http.routers.orthanc.middlewares=cors'
+      - 'traefik.http.middlewares.orthauth.headers.customrequestheaders.Authorization=Basic
+        dGVzdDp0ZXN0'
+      - 'traefik.http.middlewares.pacsprefix.stripprefix.prefixes=/pacs'
+      - traefik.http.services.orthanc.loadbalancer.server.port=8042
+      - 'traefik.http.routers.orthanc.rule=PathPrefix(`/pacs`)'
+      - 'treafik.http.routers.orthanc.entrypoints=web'
+      - 'traefik.http.routers.orthanc.middlewares=cors,pacsprefix,orthauth'
