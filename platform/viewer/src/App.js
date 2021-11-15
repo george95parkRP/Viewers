@@ -168,7 +168,7 @@ class App extends Component {
       UINotificationService,
       UIDialogService,
       UIModalService,
-      MeasurementService,
+      // MeasurementService,
       LoggerService,
     } = servicesManager.services;
 

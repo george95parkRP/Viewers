@@ -7,9 +7,9 @@ export default {
 
     const { STUDY_OPENED, STUDY_CLOSED } = IntegrationService.EVENTS;
 
-    IntegrationService.subscribe(STUDY_OPENED, ({ study }) => {
+    IntegrationService.subscribe(STUDY_OPENED, ({ data }) => {
       if (window.api) {
-        window.api.send('study_open', study);
+        window.api.send('study_open', data);
       }
     });
 

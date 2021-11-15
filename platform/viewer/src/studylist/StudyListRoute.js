@@ -255,7 +255,7 @@ function StudyListRoute(props) {
           onSelectItem={(studyInstanceUID, study) => {
             const { IntegrationService } = servicesManager.services;
             const { STUDY_OPENED } = IntegrationService.EVENTS;
-            IntegrationService._broadcastChange(STUDY_OPENED, study);
+            IntegrationService._broadcastChange(STUDY_OPENED, { study, user });
 
             const viewerPath = RoutesUtil.parseViewerPath(appConfig, server, {
               studyInstanceUIDs: studyInstanceUID,

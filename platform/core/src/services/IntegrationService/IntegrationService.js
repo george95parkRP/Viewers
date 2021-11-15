@@ -68,13 +68,13 @@ class IntegrationService {
    * @param {string} eventName The event name
    * @return void
    */
-  _broadcastChange(eventName, study) {
+  _broadcastChange(eventName, data) {
     const hasListeners = Object.keys(this.listeners).length > 0;
     const hasCallbacks = Array.isArray(this.listeners[eventName]);
 
     if (hasListeners && hasCallbacks) {
       this.listeners[eventName].forEach(listener => {
-        listener.callback({ study });
+        listener.callback({ data });
       });
     }
   }

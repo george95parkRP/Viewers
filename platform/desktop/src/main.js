@@ -10,6 +10,7 @@ import appMenuTemplate from './menu/app_menu_template';
 import editMenuTemplate from './menu/edit_menu_template';
 import devMenuTemplate from './menu/dev_menu_template';
 import createWindow from './helpers/window';
+import aidoc from './helpers/aidoc';
 
 // Special module holding environment variables which you declared
 // in config/env_xxx.json file.
@@ -33,6 +34,7 @@ const setApplicationMenu = () => {
 
 // We can communicate with our window (the renderer process) via messages.
 const initIpc = () => {
+  const api = aidoc();
   ipcMain.on('need-app-path', (event, arg) => {
     event.reply('app-path', app.getAppPath());
   });
@@ -40,10 +42,24 @@ const initIpc = () => {
     shell.openExternal(href);
   });
   ipcMain.on('study_open', (event, data) => {
-    console.log('study opened', event, data);
+    console.log('study opened', data);
+
+    try {
+      api.login(data.user);
+      api.studyOpen(data.user, data.study);
+    } catch (e) {
+      console.error(e);
+    }
   });
   ipcMain.on('study_close', (event, data) => {
     console.log('study_closed');
+
+    try {
+      api.login(data.user);
+      api.studyOpen(data.user, data.study);
+    } catch (e) {
+      console.error(e);
+    }
   });
 };
 
