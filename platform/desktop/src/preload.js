@@ -2,7 +2,12 @@ import { contextBridge, ipcRenderer } from 'electron';
 
 contextBridge.exposeInMainWorld('api', {
   send: (channel, data) => {
-    let validChannels = ['study_open', 'study_close'];
+    let validChannels = [
+      'study_open',
+      'study_close',
+      'user_login',
+      'user_logout',
+    ];
     console.log('send', channel, data);
     if (validChannels.includes(channel)) {
       ipcRenderer.send(channel, data);

@@ -54,7 +54,10 @@ function Header(props) {
       optionsValue.push({
         title: t('Logout'),
         icon: { name: 'power-off' },
-        onClick: () => userManager.signoutRedirect(),
+        onClick: () => {
+          console.log('good night dude lol');
+          userManager.signoutRedirect();
+        },
       });
     }
 
