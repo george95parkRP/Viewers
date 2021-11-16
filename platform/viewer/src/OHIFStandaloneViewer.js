@@ -21,7 +21,6 @@ import './variables.css';
 import './theme-tide.css';
 // Contexts
 import AppContext from './context/AppContext';
-import { servicesManager } from './App';
 const CallbackPage = asyncComponent(() =>
   retryImport(() =>
     import(/* webpackChunkName: "CallbackPage" */ './routes/CallbackPage.js')
@@ -83,12 +82,8 @@ class OHIFStandaloneViewer extends Component {
                 userManager={userManager}
                 successCallback={() => {
                   console.log('Signout successful');
-                  const { IntegrationService } = servicesManager.services;
-                  const { USER_LOGOUT } = IntegrationService.EVENTS;
-                  IntegrationService._broadcastChange(USER_LOGOUT);
                 }}
                 errorCallback={error => {
-                  console.log('dumb');
                   console.warn(error);
                   console.warn('Signout failed');
                 }}
