@@ -62,10 +62,10 @@ const initIpc = () => {
     }
   });
   ipcMain.on('user_login', (event, data) => {
-    console.log('user login', event, data);
+    console.log('user login');
   });
   ipcMain.on('user_logout', (event, data) => {
-    console.log('user logout', event, data);
+    console.log('user logout');
   });
 };
 
