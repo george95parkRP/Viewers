@@ -4,7 +4,6 @@ import { withTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Dropdown, AboutContent, withModal } from '@ohif/ui';
-//
 import { UserPreferences } from './../UserPreferences';
 import { servicesManager } from '../../App.js';
 import OHIFLogo from '../OHIFLogo/OHIFLogo.js';
@@ -55,8 +54,10 @@ function Header(props) {
         title: t('Logout'),
         icon: { name: 'power-off' },
         onClick: () => {
-          console.log('good night dude lol');
           userManager.signoutRedirect();
+          const { IntegrationService } = servicesManager.services;
+          const { USER_LOGOUT } = IntegrationService.EVENTS;
+          IntegrationService._broadcastChange(USER_LOGOUT);
         },
       });
     }
