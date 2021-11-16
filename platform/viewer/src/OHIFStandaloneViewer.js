@@ -5,7 +5,12 @@ import { Route, Switch } from 'react-router-dom';
 import { NProgress } from '@tanem/react-nprogress';
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
-import { ViewerbaseDragDropContext, ErrorBoundary, asyncComponent, retryImport } from '@ohif/ui';
+import {
+  ViewerbaseDragDropContext,
+  ErrorBoundary,
+  asyncComponent,
+  retryImport,
+} from '@ohif/ui';
 import { SignoutCallbackComponent } from 'redux-oidc';
 import * as RoutesUtil from './routes/routesUtil';
 
@@ -16,8 +21,11 @@ import './variables.css';
 import './theme-tide.css';
 // Contexts
 import AppContext from './context/AppContext';
+import { servicesManager } from './App';
 const CallbackPage = asyncComponent(() =>
-  retryImport(() => import(/* webpackChunkName: "CallbackPage" */ './routes/CallbackPage.js'))
+  retryImport(() =>
+    import(/* webpackChunkName: "CallbackPage" */ './routes/CallbackPage.js')
+  )
 );
 
 class OHIFStandaloneViewer extends Component {
@@ -73,8 +81,14 @@ class OHIFStandaloneViewer extends Component {
             render={() => (
               <SignoutCallbackComponent
                 userManager={userManager}
-                successCallback={() => console.log('Signout successful')}
+                successCallback={() => {
+                  console.log('Signout successful');
+                  const { IntegrationService } = servicesManager.services;
+                  const { USER_LOGOUT } = IntegrationService.EVENTS;
+                  IntegrationService._broadcastChange(USER_LOGOUT);
+                }}
                 errorCallback={error => {
+                  console.log('dumb');
                   console.warn(error);
                   console.warn('Signout failed');
                 }}
@@ -202,10 +216,10 @@ class OHIFStandaloneViewer extends Component {
                   {match === null ? (
                     <></>
                   ) : (
-                      <ErrorBoundary context={match.url}>
-                        <Component match={match} location={this.props.location} />
-                      </ErrorBoundary>
-                    )}
+                    <ErrorBoundary context={match.url}>
+                      <Component match={match} location={this.props.location} />
+                    </ErrorBoundary>
+                  )}
                 </CSSTransition>
               )}
             </Route>

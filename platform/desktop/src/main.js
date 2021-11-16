@@ -61,6 +61,12 @@ const initIpc = () => {
       console.error(e);
     }
   });
+  ipcMain.on('user_login', (event, data) => {
+    console.log('user login', event, data);
+  });
+  ipcMain.on('user_logout', (event, data) => {
+    console.log('user logout', event, data);
+  });
 };
 
 app.on('ready', () => {
